@@ -1,5 +1,5 @@
 server:
-  port: 1988
+  port: 1987
   servlet:
     context-path: /xrateservice1
 
