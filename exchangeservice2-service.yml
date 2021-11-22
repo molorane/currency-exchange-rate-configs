@@ -27,7 +27,7 @@ service:
     convert: api.exchangeratesapi.io/v1/convert
 
 update_rates:
-  cron: 5000 
+  cron: 3000000 # 3,000,000 1 minute
 
 management:
   endpoints:
