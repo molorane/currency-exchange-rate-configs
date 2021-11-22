@@ -26,9 +26,9 @@ service:
     historical: api.exchangeratesapi.io/v1/
     convert: api.exchangeratesapi.io/v1/convert
 
-# 3,000,000 1 minute
+# 120000 2 minute
 update_rates:
-  cron: 3000000
+  cron: 120000
 
 management:
   endpoints:
