@@ -1,0 +1,41 @@
+server:
+  port: 1987
+  servlet:
+    context-path: /exchangeservice2
+
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+
+---
+
+# Local profile
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Blessing**4
+    url: jdbc:mysql://localhost:3306/exchangerate?serverTimezone=UTC
+    username: root
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+service:
+  access_key: 743ca3b5fa46942d9a63296a6e1ea426
+  url:
+    latest: api.exchangeratesapi.io/v1/latest
+    historical: api.exchangeratesapi.io/v1/
+    convert: api.exchangeratesapi.io/v1/convert
+
+update-rates:
+  cron: 5000L 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,17 @@
+server:
+  port: 1988
+  servlet:
+    context-path: /exchangeservice1
+
+service:
+  access_key: 743ca3b5fa46942d9a63296a6e1ea426
+  url:
+    latest: api.exchangeratesapi.io/v1/latest
+    historical: api.exchangeratesapi.io/v1/
+    convert: api.exchangeratesapi.io/v1/convert
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
