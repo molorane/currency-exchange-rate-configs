@@ -1,7 +1,7 @@
 server:
   port: 1987
   servlet:
-    context-path: /exchangeservice2
+    context-path: /xrateservice2
 
 spring:
   liquibase:
