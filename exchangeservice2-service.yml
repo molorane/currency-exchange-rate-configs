@@ -15,8 +15,8 @@ spring:
   profiles: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: Blessing**4
-    url: jdbc:mysql://localhost:3306/exchangerate?serverTimezone=UTC
+    password: password$123
+    url: jdbc:mysql://localhost:3306/xrate?serverTimezone=UTC
     username: root
   jpa:
     show-sql: true
