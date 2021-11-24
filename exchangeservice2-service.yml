@@ -38,7 +38,6 @@ management:
       exposure:
         include: "*"
 
-
 resilience4j.circuitbreaker:
   instances:
     service2:
