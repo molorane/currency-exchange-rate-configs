@@ -1,0 +1,39 @@
+server:
+  port: 1988
+  servlet:
+    context-path: /xrateservice2
+
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+
+---
+
+# Local profile
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: password$123
+    url: jdbc:mysql://localhost:3306/xrate?serverTimezone=UTC
+    username: root
+
+service:
+  access_key: 743ca3b5fa46942d9a63296a6e1ea426
+  url:
+    latest: api.exchangeratesapi.io/v1/latest
+    historical: api.exchangeratesapi.io/v1/
+    convert: api.exchangeratesapi.io/v1/convert
+
+# 120000 2 minute
+update_rates:
+  cron: 120000
+
+management:
+  endpoints:
+    health:
+      show-details: always
+    web:
+      exposure:
+        include: "*"
