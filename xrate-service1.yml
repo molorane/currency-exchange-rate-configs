@@ -30,7 +30,7 @@ resilience4j.circuitbreaker:
         - java.io.IOException
 resilience4j.retry:
   configs:
-    service1:
+    retryService1:
       maxRetryAttempts: 2
       waitDuration: 100
       retryExceptions:
@@ -39,12 +39,12 @@ resilience4j.retry:
 
 resilience4j.bulkhead:
   configs:
-    service1:
+    bulkheadService1:
       maxConcurrentCalls: 100
 
 resilience4j.thread-pool-bulkhead:
   configs:
-    service1:
+    bulkheadService1:
       maxThreadPoolSize: 4
       coreThreadPoolSize: 2
       queueCapacity: 2
