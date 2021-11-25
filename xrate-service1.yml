@@ -10,54 +10,50 @@ service:
     historical: api.exchangeratesapi.io/v1/
     convert: api.exchangeratesapi.io/v1/convert
 
-management:
-  endpoints:
-    health:
-      show-details: always
-    web:
-      exposure:
-        include: "*"
-
+management.endpoints.web.exposure.include: '*'
+management.endpoint.health.show-details: always
 
 resilience4j.circuitbreaker:
-  instances:
+  configs:
     service1:
       registerHealthIndicator: true
-      ringBufferSizeInClosedState: 5
-      ringBufferSizeInHalfOpenState: 3
-      waitDurationInOpenState: 10s
-      failureRateThreshold: 50
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      slidingWindowType: TIME_BASED
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 2s
+      failureRateThreshold: 30
+      eventConsumerBufferSize: 10
       recordExceptions:
         - org.springframework.web.client.HttpServerErrorException
         - java.io.IOException
-        - java.util.concurrent.TimeoutException
-        - org.springframework.web.client.ResourceAccessException
-      ignoreExceptions:
-          - com.gl.orderManagementApp.service.MyException
-
-resilience4j.ratelimiter:
-  instances:
-    service1:
-      limitForPeriod: 10
-      limitRefreshPeriod: 100000
-      timeoutDuration: 1000ms
-
-
 resilience4j.retry:
-  instances:
-    retryService1:
-      maxRetryAttempts: 5
-      waitDuration: 10000
+  configs:
+    service1:
+      maxRetryAttempts: 2
+      waitDuration: 100
+      retryExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+        - java.io.IOException
 
 resilience4j.bulkhead:
-  instances:
-    bulkheadService1:
-      maxWaitDuration: 10ms
-      maxConcurrentCall: 30
+  configs:
+    service1:
+      maxConcurrentCalls: 100
 
 resilience4j.thread-pool-bulkhead:
-  instances:
-    bulkheadService1:
-      maxThreadPoolSize: 1
-      coreThreadPoolSize: 1
-      queueCapacity: 1
+  configs:
+    service1:
+      maxThreadPoolSize: 4
+      coreThreadPoolSize: 2
+      queueCapacity: 2
+
+resilience4j.ratelimiter:
+  configs:
+    service1:
+      registerHealthIndicator: false
+      limitForPeriod: 10
+      limitRefreshPeriod: 1s
+      timeoutDuration: 0
+      eventConsumerBufferSize: 100
